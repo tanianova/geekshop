@@ -49,14 +49,5 @@ def logout(request):
     return HttpResponseRedirect(reverse('index'))
 
 
-def edit(request):
-    if request.method == 'POST':
-        form = UserEditForm(request.POST, request.FILES, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('auth:edit'))
-    else:
-        form = UserEditForm(instance=request.user)
-
-    content = {'title': 'Редактирование', 'form': form}
-    return render(request, 'authapp/profile.html', content)
+def profile(request):
+    return render(request, 'authapp/profile.html')

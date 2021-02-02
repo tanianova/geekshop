@@ -1,41 +1,11 @@
-{% extends 'authapp/base.html' %}
+{% extends 'mainapp/base.html' %}
 {% load staticfiles %}
 
 {% block css %}
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/profile.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'index' %}">GeekShop</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'products:index' %}">Каталог <i
-                                class="fas fa-shopping-bag"></i></a>
-                    </li>
-                    <!--                <li class="nav-item">-->
-                    <!--                    <a class="nav-link" href="../auth/login.html">Войти <i class="fas fa-sign-in-alt"></i></a>-->
-                    <!--                </li>-->
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'auth:edit' %}">{{ user.username }} <i
-                                class="fas fa-user-circle"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'auth:logout' %}">Выйти <i class="fas fa-sign-out-alt"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <div class="container">
         <div class="row">
             <div class="col-lg-7">
@@ -146,5 +116,4 @@
                 <button type="button" class="btn btn-success btn-lg float-right">Оформить</button>
             </div>
         </div>
-    
 {% endblock %}
