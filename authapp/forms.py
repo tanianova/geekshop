@@ -30,8 +30,6 @@ class UserRegisterForm(UserCreationForm):
         self.fields['last_name'].widget.attrs['placeholder'] = 'Введите фамилию'
         self.fields['password1'].widget.attrs['placeholder'] = 'Введите пароль'
         self.fields['password2'].widget.attrs['placeholder'] = 'Подтвердите пароль'
-        self.fields['age'].widget.attrs['placeholder'] = 'Введите возраст'
-        self.fields['avatar'].widget.attrs['src'] = '#'
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-4'
 
@@ -42,14 +40,17 @@ class UserRegisterForm(UserCreationForm):
         return username
 
 
-class UserEditForm(UserChangeForm):
+class UserProfileForm(UserChangeForm):
+    avatar = forms.ImageField(widget=forms.FileInput)
+
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'avatar', 'password')
+        fields = ('first_name', 'last_name', 'avatar', 'username', 'email')
 
     def __init__(self, *args, **kwargs):
-        super(UserChangeForm, self).__init__(*args, **kwargs)
+        super(UserProfileForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-            if field_name == 'password':
-                field.widget = forms.HiddenInput()
+            field.widget.attrs['class'] = 'form-control py-4'
+        self.fields['username'].widget.attrs['readonly'] = True
+        self.fields['email'].widget.attrs['readonly'] = True
+        self.fields['avatar'].widget.attrs['class'] = 'custom-file-input'
