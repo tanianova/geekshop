@@ -42,3 +42,10 @@ def admin_users_update(request, id=None):
         form = UserAdminProfileForm(instance=user)
     context = {'form': form, 'current_user': user}
     return render(request, 'adminapp/admin-users-update-delete.html', context)
+
+
+def admin_users_delete(request, id=None):
+    user = User.objects.get(id=id)
+    user.is_active = False
+    user.save()
+    return HttpResponseRedirect(reverse('admins:admin_users_read'))
