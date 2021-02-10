@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import user_passes_test
 
 from authapp.models import User
-from adminapp.forms import UserAdminRegisterForm, UserAdminProfileForm
+from adminapp.forms import UserAdminRegisterForm, UserAdminProfileForm, ProductAdminCreateForm
 from mainapp.models import product
 
 
@@ -61,3 +61,15 @@ def admin_users_delete(request, id=None):
 def admin_products_read(request):
     context = {'products': product.objects.all()}
     return render(request, 'adminapp/admin-products-read.html', context)
+
+
+def admin_products_create(request):
+    if request.method == 'POST':
+        form = ProductAdminCreateForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('admins:admin_products_read'))
+    else:
+        form = ProductAdminCreateForm()
+    context = {'form': form}
+    return render(request, 'adminapp/admin-products-create.html', context)
