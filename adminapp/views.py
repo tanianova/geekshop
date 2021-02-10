@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import user_passes_test
 
 from authapp.models import User
-from adminapp.forms import UserAdminRegisterForm, UserAdminProfileForm, ProductAdminCreateForm
+from adminapp.forms import UserAdminRegisterForm, UserAdminProfileForm, ProductAdminCreateForm, ProductAdminUpdateForm
 from mainapp.models import product
 
 
@@ -73,3 +73,25 @@ def admin_products_create(request):
         form = ProductAdminCreateForm()
     context = {'form': form}
     return render(request, 'adminapp/admin-products-create.html', context)
+
+
+def admin_products_update(request, id=None):
+    current_product = product.objects.get(id=id)
+    if request.method == 'POST':
+        form = ProductAdminUpdateForm(data=request.POST, files=request.FILES, instance=current_product)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('adminapp:admin_products_read'))
+    else:
+        form = ProductAdminUpdateForm(instance=current_product)
+    context = {
+        'form': form,
+        'current_product': current_product
+    }
+    return render(request, 'adminapp/admin-products-update-delete.html', context)
+
+
+def admin_products_delete(request, id=None):
+    current_product = product.objects.get(id=id)
+    current_product.delete()
+    return HttpResponseRedirect(reverse('admins:admin_products_read'))
