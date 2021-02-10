@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import user_passes_test
 
 from authapp.models import User
 from adminapp.forms import UserAdminRegisterForm, UserAdminProfileForm
+from mainapp.models import product
 
 
 @user_passes_test(lambda u: u.is_superuser, login_url='/')
@@ -55,3 +56,8 @@ def admin_users_delete(request, id=None):
     user.is_active = False
     user.save()
     return HttpResponseRedirect(reverse('admins:admin_users_read'))
+
+
+def admin_products_read(request):
+    context = {'products': product.objects.all()}
+    return render(request, 'adminapp/admin-products-read.html', context)

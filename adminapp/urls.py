@@ -10,4 +10,5 @@ urlpatterns = [
     path('admin-users-create/', views.admin_users_create, name='admin_users_create'),
     path('admin-users-update/<int:id>/', views.admin_users_update, name='admin_users_update'),
     path('admin-users-delete/<int:id>/', views.admin_users_delete, name='admin_users_delete'),
+    path('admin-products-read/', views.admin_products_read, name='admin_products_read'),
 ]

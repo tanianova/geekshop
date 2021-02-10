@@ -48,8 +48,8 @@
         </form>
         <div class="form-row">
             <div class="col-lg-12" style="margin-top: 33px;">
-                <a href="{% url 'admins:admin_users_delete' current_user.id %}">
-                    <button class="btn btn-danger btn-block">Удалить</button>
+                <a href='{% url 'admins:admin_users_delete' current_user.id %}' class="btn btn-danger btn-block">
+                    Удалить
                 </a>
             </div>
         </div>
