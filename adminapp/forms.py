@@ -25,16 +25,10 @@ class UserAdminProfileForm(UserProfileForm):
 
 class ProductAdminCreateForm(forms.ModelForm):
     image = forms.ImageField(widget=forms.FileInput)
-    name = forms.CharField(max_length=100)
-    category = forms.MultipleChoiceField
-    quantity = forms.IntegerField(widget=forms.NumberInput)
-    full_description = forms.CharField(max_length=500)
-    short_description = forms.CharField(max_length=100)
-    price = forms.DecimalField(max_digits=8, decimal_places=2)
 
     class Meta:
         model = product
-        fields = ('name', 'category', 'quantity', 'price', 'short_description', 'full_description', 'image')
+        fields = ('name', 'category', 'quantity', 'price', 'short_description', 'description', 'image')
 
     def __init__(self, *args, **kwargs):
         super(ProductAdminCreateForm, self).__init__(*args, **kwargs)
@@ -42,7 +36,7 @@ class ProductAdminCreateForm(forms.ModelForm):
         self.fields['quantity'].widget.attrs['placeholder'] = 'Введите количество'
         self.fields['price'].widget.attrs['placeholder'] = 'Введите цену'
         self.fields['short_description'].widget.attrs['placeholder'] = 'Короткое описание продукта'
-        self.fields['full_description'].widget.attrs['placeholder'] = 'Полное описание продукта'
+        self.fields['description'].widget.attrs['placeholder'] = 'Полное описание продукта'
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-4'
         self.fields['image'].widget.attrs['class'] = 'custom-file-input'
@@ -51,8 +45,6 @@ class ProductAdminCreateForm(forms.ModelForm):
 class ProductAdminUpdateForm(ProductAdminCreateForm):
     class Meta:
         model = product
-        fields = ('name', 'category', 'quantity', 'price', 'short_description', 'full_description', 'image')
+        fields = ('name', 'category', 'quantity', 'price', 'short_description', 'description', 'image')
 
-    def __init__(self, *args, **kwargs):
-        super(ProductAdminUpdateForm, self).__init__(*args, **kwargs)
 
