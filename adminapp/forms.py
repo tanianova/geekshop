@@ -5,7 +5,7 @@ from mainapp.models import product
 
 
 class UserAdminRegisterForm(UserRegisterForm):
-    avatar = forms.ImageField(widget=forms.FileInput)
+    avatar = forms.ImageField(widget=forms.FileInput, required=False)
 
     class Meta:
         model = User
@@ -24,7 +24,7 @@ class UserAdminProfileForm(UserProfileForm):
 
 
 class ProductAdminCreateForm(forms.ModelForm):
-    image = forms.ImageField(widget=forms.FileInput)
+    image = forms.ImageField(widget=forms.FileInput, required=False)
 
     class Meta:
         model = product
@@ -46,5 +46,3 @@ class ProductAdminUpdateForm(ProductAdminCreateForm):
     class Meta:
         model = product
         fields = ('name', 'category', 'quantity', 'price', 'short_description', 'description', 'image')
-
-
